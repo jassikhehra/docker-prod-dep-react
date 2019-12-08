@@ -5,13 +5,14 @@ before_install:
   - docker build -t jassikhehra/multi-react -f ./client/Dockerfile.dev ./client
 script:
   - docker run -e CI=true jassikhehra/multi-react npm test -- --coverage
-  - echo "$DOCKER_PASSWORD" |docker login -u "$DOCKER_USER" --password=stdin
+
 after_success:
   - docker build -t jassikhehra/multi-client ./client
   - docker build -t jassikhehra/multi-nginx ./nginx
   - docker build -t jassikhehra/multi-server ./server
   - docker build -t jassikhehra/multi-worker ./worker
-   - docker push jassikhehra/multi-client
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  - docker push jassikhehra/multi-client
   - docker push jassikhehra/multi-nginx
   - docker push jassikhehra/multi-server
   - docker push jassikhehra/multi-worker
