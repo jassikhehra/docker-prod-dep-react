@@ -11,7 +11,7 @@ after_success:
   - docker build -t jassikhehra/multi-nginx ./nginx
   - docker build -t jassikhehra/multi-server ./server
   - docker build -t jassikhehra/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login docker.io -u "$DOCKER_USER" --password-stdin
   - docker push jassikhehra/multi-client
   - docker push jassikhehra/multi-nginx
   - docker push jassikhehra/multi-server
