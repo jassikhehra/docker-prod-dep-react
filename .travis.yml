@@ -2,17 +2,17 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t jassikhehra/multi-react -f ./client/Dockerfile.dev ./client
+  - docker build -t jassiv/multi-react -f ./client/Dockerfile.dev ./client
 script:
-  - docker run -e CI=true jassikhehra/multi-react npm test -- --coverage
+  - docker run -e CI=true jassiv/multi-react npm test -- --coverage
 
 after_success:
-  - docker build -t jassikhehra/multi-client ./client
-  - docker build -t jassikhehra/multi-nginx ./nginx
-  - docker build -t jassikhehra/multi-server ./server
-  - docker build -t jassikhehra/multi-worker ./worker
+  - docker build -t jassiv/multi-client ./client
+  - docker build -t jassiv/multi-nginx ./nginx
+  - docker build -t jassiv/multi-server ./server
+  - docker build -t jassiv/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login docker.io -u "$DOCKER_USER" --password-stdin
-  - docker push jassikhehra/multi-client
-  - docker push jassikhehra/multi-nginx
-  - docker push jassikhehra/multi-server
-  - docker push jassikhehra/multi-worker
+  - docker push jassiv/multi-client
+  - docker push jassiv/multi-nginx
+  - docker push jassiv/multi-server
+  - docker push jassiv/multi-worker
