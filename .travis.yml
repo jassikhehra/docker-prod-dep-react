@@ -1,23 +1,20 @@
 sudo: required
 services:
-  - docker
-
+- docker
 before_install:
-  - docker build -t jassikhehra/multi-react -f ./client/Dockerfile.dev ./client
-
+- docker build -t jassikhehra/multi-react -f ./client/Dockerfile.dev ./client
 script:
-  - docker run -e CI=true jassikhehra/multi-react npm test -- --coverage
-
+- docker run -e CI=true jassikhehra/multi-react npm test -- --coverage
 after_success:
-  - docker build -t jassikhehra/multi-client ./client
-  - docker build -t jassikhehra/multi-nginx ./nginx
-  - docker build -t jassikhehra/multi-server ./server
-  - docker build -t jassikhehra/multi-worker ./worker
-
-  - echo "$DOCKER_PASS" |docker login -u "$DOCKER_ID" --password=stdin
-
-  - docker push jassikhehra/multi-client
-  - docker push jassikhehra/multi-nginx
-  - docker push jassikhehra/multi-server
-  - docker push jassikhehra/multi-worker
-  
+- docker build -t jassikhehra/multi-client ./client
+- docker build -t jassikhehra/multi-nginx ./nginx
+- docker build -t jassikhehra/multi-server ./server
+- docker build -t jassikhehra/multi-worker ./worker
+- echo "$DOCKER_PASS" |docker login -u "$DOCKER_ID" --password=stdin
+- docker push jassikhehra/multi-client
+- docker push jassikhehra/multi-nginx
+- docker push jassikhehra/multi-server
+- docker push jassikhehra/multi-worker
+env:
+  global:
+    secure: UnZIKTgQ38urzqa/vjvcI6VhNk/4q9bDDfFyKgRCbirrLX9Mxezk9i5xYq/OchMYhfEPNM7YhGvMBUD+5yedmL611Y2/mZDaJZKqiyYul40nEskEDuWLxgXiz6j7Q6lRTIMjtr+7u7ZH57Wtt4kq1Anfvt2on5/V9pD/GlGAOHA5+iHHtZ8TLT2aUfwyRoiPlq6gEltoqc1mMJFZGWjZsUmJpdF9vGF2OmukkWnLROOakr4zXe4lxuet7l8J290etHeDdIGNdvm8KDisnsnKNoy2chS5h3h2dcBia/nMQU3BBQsZ5wzU57VssmD2us/T1A7/RbJQpvBEDEbwB5NWXKulcA9tE0w+GY0dJdU/GYK1ugdv27+oDw7ZbLFShTi+Jbw9uVMtQFVrQh4MX+DKfhVLoRFwHeY30j5VGnl4AZUH39nDG5mJpI+bwwedDKltnBmtng7fZBLAomxv8mspmNMMO25ysiAdrcyp+tlndauNdsjYUKVF/Gj5yHQsSnV14Lu57GltmqtokgrCBWcSKqaPADpKd7W0ibefgRCChfTqydtXcDHKTITMTZs4pidtm5lfZUduyP3rTWlLRuIQTNzIFFBrXekpJV8+hnYhOFCb/pVOCj+cbpMvrvKXYibxfO5atXWuK3wq8VOb4BI9dHayVpsf2k7WxSLFZez5mpo=
